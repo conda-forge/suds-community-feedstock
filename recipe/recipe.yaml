@@ -12,7 +12,7 @@ source:
   sha256: ab3b24dc9ba06b5e6598e2a5d34d2a7d06c79e613d81cedc028475bfbd3bb90c
 
 build:
-  number: 1
+  number: 0
   noarch: python
   script: ${{ PYTHON }} -m pip install . -vv
 
@@ -32,6 +32,14 @@ tests:
       python_version:
         - ${{ python_min }}.*
         - '*'
+  - script:
+      - pytest -vvv tests/
+    requirements:
+      run:
+        - pytest
+    files:
+      source:
+        - tests/
 
 about:
   summary: Lightweight SOAP client (community fork)
