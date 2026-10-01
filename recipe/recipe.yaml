@@ -1,0 +1,50 @@
+schema_version: 1
+
+context:
+  name: suds-community
+  version: "1.1.2"
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/${{ name }}-${{ version }}.tar.gz
+  sha256: 883b4173ad23e7b20e9779ac7238b06140c50d7852afd5dc49dad1ea5f5a3d08
+
+build:
+  number: 1
+  noarch: python
+  script: ${{ PYTHON }} -m pip install . -vv
+
+requirements:
+  host:
+    - pip
+    - python ${{ python_min }}.*
+  run:
+    - python >=${{ python_min }}
+
+tests:
+  - python:
+      imports:
+        - suds
+        - suds.bindings
+      pip_check: true
+      python_version:
+        - ${{ python_min }}.*
+        - '*'
+
+about:
+  summary: Lightweight SOAP client (community fork)
+  license: LGPL-3.0-only
+  license_file: LICENSE.txt
+  description: |
+    Suds is a lightweight SOAP python client for consuming Web Services.
+    A community fork of the jurko fork.
+  homepage: https://github.com/suds-community/suds
+  repository: https://github.com/suds-community/suds
+  documentation: https://github.com/suds-community/suds
+
+extra:
+  recipe-maintainers:
+    - emiliom
